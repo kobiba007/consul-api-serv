@@ -1,0 +1,23 @@
+require 'securerandom'
+
+Vagrant.configure(2) do |config|
+
+  config.vm.box = 'bento/ubuntu-20.10'
+
+  config.vm.provider 'virtualbox' do |vb|
+    vb.memory = '1024'  # 1GB of RAM
+    vb.cpus = '1'       # 1 CPU
+  end
+
+  # Unique hostname, required in forming a Consul cluster.
+  config.vm.hostname = "consul-server-#{SecureRandom.uuid}"
+
+  # Consul UI - launch the VM with bridged network
+  config.vm.network "public_network"
+
+  config.vm.network "forwarded_port", guest: 8500, host: 8500
+
+  # Provisioning
+  config.vm.provision 'shell', path: 'provision.sh'
+
+end
