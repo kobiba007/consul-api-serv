@@ -50,7 +50,10 @@ Postman - For sending the GET requests for the API server.
 ## Consul Server
 To install the Consul server we will use vagrant and virtualbox.
 
+#### Download vagrant and virtualbox:
+
 vagrant setup file:
+
 https://releases.hashicorp.com/vagrant/2.2.19/vagrant_2.2.19_x86_64.msi
 
 VirtaulBox:
@@ -58,9 +61,14 @@ VirtaulBox:
 https://download.virtualbox.org/virtualbox/6.1.50/VirtualBox-6.1.50-161033-Win.exe
 
 
-Using windows command line nevigate to the folder where vagrantfile is located.
+Using windows command line navigate to the folder where vagrantfile is located:
 
-now run:
+
+```bash
+C:\Users\Kobi\consul-api-serv\Consul-API\ConsulServer>
+```
+
+Now run:
 
 ```bash
 vagrant up
@@ -80,33 +88,41 @@ service consul status
 
 ![App Screenshot](https://i.postimg.cc/nLwrg5FT/consul.png)
 
+```bash
+http://127.0.0.1:8500/
+```
 
 ## API-server
 
 For the API server, first, we need to build an image from the docker file, and run it.
 
-#### Make sure Dockerfile and app folder are on the same path.
-
-In order for the API to be able to comunicate with Consul we will send the Consule IP to the container using ENV variable.  
+* #### Make sure Dockerfile and app folder are on the same path.
 
 
-Example: 
 
-first build the docker image:
+
+#### Build
+
+First, build the docker image:
 
 ```bash
 docker build -t consul-api-serv .
 ```
 
-Lets say Consul server IP is 192.168.5.235.
+#### Run
 
-We will run the docker and send the `IP_ADDRESS` variable for the API Endpoint.
+To create communication between the API and Consul, we'll pass the Consul IP to the container using an environment variable.
 
-To get the IP, use this command on the Consul VM:
+To get the Consul IP, use this command on the Consul VM:
 
 ```bash
 ifconfig eth1 | grep -oP 'inet \K\S+'
 ```
+Lets say Consul server IP is 192.168.5.235.
+
+We will run the docker and send the `IP_ADDRESS` variable for the API Endpoint.
+
+
 
 #### To view logs on shell, please make sure you are NOT running detached (-d)
 
