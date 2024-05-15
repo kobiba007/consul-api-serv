@@ -88,6 +88,7 @@ service consul status
 
 ![App Screenshot](https://i.postimg.cc/nLwrg5FT/consul.png)
 
+Consule UI is also available, you can browse to:
 ```bash
 http://127.0.0.1:8500/
 ```
