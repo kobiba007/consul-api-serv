@@ -35,19 +35,5 @@ chown -R consul:consul /etc/consul.d
 
 cp /vagrant/consul.service /etc/systemd/system
 
-
-for bin in cfssl cfssl-certinfo cfssljson
-do
-  echo "Installing ${bin}..."
-  if [[ ! -f /tmp/${bin} ]]
-  then
-    curl -sSL https://pkg.cfssl.org/R1.2/${bin}_linux-amd64 > /tmp/${bin}
-  fi
-  if [[ ! -f /usr/local/bin/${bin} ]]
-  then
-    install /tmp/${bin} /usr/local/bin/${bin}
-  fi
-done
-
 systemctl enable consul
 systemctl start consul
