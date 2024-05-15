@@ -1,6 +1,5 @@
 # app.py
 import logging
-import sys
 from flask import Flask
 from consul_status import get_consul_status
 from consul_summary import get_consul_summary
