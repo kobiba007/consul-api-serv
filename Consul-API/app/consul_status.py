@@ -1,6 +1,7 @@
 # consul_status.py
 import os
 import requests
+import logging
 from flask import jsonify
 
 # get the Consul server's IP address from an environment variable
@@ -15,5 +16,8 @@ def get_consul_status():
             return jsonify({"status": 1, "message": "Consul server is running"})
         else:
             return jsonify({"status": 0, "message": "Consul server is down"})
+
     except Exception as e:
-        return jsonify({"status": 0, "message": f"Error: {str(e)}"})
+        # if there's an error, log it, and return message
+        logging.exception("An error occurred: %s", str(e))
+        return jsonify({"error": "An unexpected error occurred. Please check the logs for more details."})

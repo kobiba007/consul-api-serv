@@ -1,3 +1,0 @@
-docker build -t consul-api-serv .
-docker run -p 5000:5000 -e IP_ADDRESS=<OS-intIP> consul-api-serv
-

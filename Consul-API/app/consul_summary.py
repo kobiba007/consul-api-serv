@@ -1,6 +1,7 @@
 # consul_summary.py
 import os
 import requests
+import logging
 from flask import jsonify
 
 # get the Consul server's IP address from an environment variable
@@ -37,4 +38,6 @@ def get_consul_summary():
         
         return jsonify(summary_data)
     except Exception as e:
-        return jsonify({"error": str(e)})
+        # if there's an error, log it, and return message
+        logging.exception("An error occurred: %s", str(e))
+        return jsonify({"error": "An unexpected error occurred. Please check the logs for more details."})

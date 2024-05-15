@@ -2,6 +2,7 @@
 import os
 import requests
 from flask import jsonify
+import logging
 
 # get the Consul server's IP address from an environment variable
 ip_address = os.environ.get('IP_ADDRESS')
@@ -24,5 +25,6 @@ def get_consul_members():
         return jsonify({"registered_nodes": members})
 
     except Exception as e:
-        # if there's an error, return it 
-        return jsonify({"error": str(e)})
+        # if there's an error, log it, and return message
+        logging.exception("An error occurred: %s", str(e))
+        return jsonify({"error": "An unexpected error occurred. Please check the logs for more details."})
