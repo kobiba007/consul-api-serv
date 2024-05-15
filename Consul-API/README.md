@@ -101,7 +101,13 @@ docker build -t consul-api-serv .
 Lets say Consul server IP is 192.168.5.235.
 
 We will run the docker and send the `IP_ADDRESS` variable for the API Endpoint.
- 
+
+To get the IP, use this command on the Consul VM:
+
+```bash
+ifconfig eth1 | grep -oP 'inet \K\S+'
+```
+
 #### To view logs on shell, please make sure you are NOT running detached (-d)
 
 ```bash
